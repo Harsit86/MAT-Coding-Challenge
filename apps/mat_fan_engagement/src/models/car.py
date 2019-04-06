@@ -1,11 +1,14 @@
 from enum import Enum
 from geopy import distance
+from logger import get_logger
 
 
 class CarStatusTypes(Enum):
     SPEED = 'SPEED'
     POSITION = 'POSITION'
 
+
+log = get_logger(__file__)
 
 
 class CarStatus(object):
@@ -17,9 +20,8 @@ class CarStatus(object):
         self._cur_loc = self._init_loc
 
         self._index = car_coordinates['carIndex']
-        self._status_type = None
         #self._distance_travelled = 0
-        self._cur_speed = None
+        self._cur_speed = 0
         self._cur_position = None
 
     def _location_delta(self, new_loc):
@@ -28,17 +30,14 @@ class CarStatus(object):
     def _time_delta_in_seconds(self, new_timestamp):
         return abs(new_timestamp - self._cur_timestamp) / 1000.0
 
-    def calc_speed_kms_per_hour(self, distance, time):
-        return distance.km / time * 3600.0
+    def calc_speed_miles_per_hour(self, distance, time):
+        return distance.miles / time * 3600.0
 
     def update_status(self, car_coordinates):
-        if car_coordinates['timestamp'] == self._init_timestamp:
-            self._status_type = CarStatusTypes.POSITION
-        else:
-            self._status_type = CarStatusTypes.SPEED
+        if self._init_timestamp != car_coordinates['timestamp']:
             dist_travelled = self._location_delta(car_coordinates['location'])
             delta_t = self._time_delta_in_seconds(car_coordinates['timestamp'])
-            self._cur_speed = self.calc_speed_kms_per_hour(dist_travelled, delta_t)
+            self._cur_speed = self.calc_speed_miles_per_hour(dist_travelled, delta_t)
             #self._distance_travelled += dist_travelled.km
             #self._cur_loc = new_pos
             # TODO - get car's current position
@@ -57,7 +56,7 @@ class CarStatus(object):
         }
 
     def get_current_speed_status(self):
-        return self._current_status(CarStatusTypes.SPEED, round(self._cur_speed))
+        return self._current_status('SPEED', round(self._cur_speed))
 
     def get_current_position_status(self):
         return self._current_status(CarStatusTypes.POSITION, self._cur_position)
