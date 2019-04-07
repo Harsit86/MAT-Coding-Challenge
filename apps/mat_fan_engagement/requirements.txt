@@ -3,3 +3,4 @@
 paho-mqtt==1.4.0
 geopy==1.19.0
 numpy==1.16.2
+marshmallow==2.19.2
