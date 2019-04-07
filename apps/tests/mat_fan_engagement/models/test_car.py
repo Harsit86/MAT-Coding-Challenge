@@ -20,7 +20,7 @@ def test_car_status_initial_status():
     expected = {
         'timestamp': coordinates['timestamp'],
         'carIndex': coordinates['carIndex'],
-        'type': CarStatusTypes.POSITION,
+        'type': CarStatusTypes.POSITION.name,
         'value': None,
     }
     assert actual == expected
@@ -52,7 +52,7 @@ def test_car_status_updated_location_speed_status():
     expected = {
         'carIndex': 0,
         'timestamp': coords2['timestamp'],
-        'type': CarStatusTypes.SPEED,
+        'type': CarStatusTypes.SPEED.name,
         'value': 281
     }
     assert actual == expected

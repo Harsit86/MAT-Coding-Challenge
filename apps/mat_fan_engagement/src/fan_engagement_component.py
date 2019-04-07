@@ -3,7 +3,7 @@ from logger import get_logger
 import paho.mqtt.client as mqtt
 
 
-from src.models.car import CarStatus
+from src.models.race import Race
 
 
 log = get_logger(__file__)
@@ -16,6 +16,7 @@ class FanEngagementComponent(object):
         self._port = port
         self._client = None
         self._car_status = {}
+        self._race = Race()
 
     def run(self):
         self._client = mqtt.Client()
@@ -37,20 +38,11 @@ class FanEngagementComponent(object):
 
     def _on_message(self, client, _, msg):
         car_coords = json.loads(msg.payload)
+        self._race.update_race_status(car_coords)
+        car_status = self._race.get_car_status(car_coords['carIndex'])
+        event = self._race.get_event()
 
-        car_index = car_coords['carIndex']
-        if car_index not in self._car_status:
-            car_status = CarStatus(car_coords)
-            self._car_status[car_index] = car_status
-
-        car_status = self._car_status[car_index]
-        car_status.update_status(car_coords)
-
-        car_events = {
-            'timestamp': car_coords['timestamp'],
-            'text': 'test'
-        }
-
-        log.info(car_status.get_current_speed_status())
-        client.publish('carStatus', json.dumps(car_status.get_current_speed_status()))
-        client.publish('events', json.dumps(car_events))
+        client.publish('carStatus', json.dumps(car_status[0]))
+        client.publish('carStatus', json.dumps(car_status[1]))
+        if event is not None:
+            client.publish('events', json.dumps(event))
