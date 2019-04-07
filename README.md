@@ -126,3 +126,9 @@ $ mosquitto_pub -t carStatus -f examples/status.json
 ```
 
 You should now see a car's position and an event in the webapp.
+
+## Solution Notes
+
+Please read the instructions in [here](./apps/mat_fan_engagement/README.md) on
+how to run the code and some explanation on what I have done. I have also tried to add a
+section to describe other things I would've done had I more time.

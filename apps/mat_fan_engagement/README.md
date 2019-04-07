@@ -72,7 +72,7 @@ metadata needed to stream the data back to the MQTT broker.
 
 ## Further Work
 
-If I had more time, I would do the following:
+If I had more time, I would do a lot of things differently, naming a few below:
 
 * More and rigorous testing
 * Add docstrings to the functions
@@ -81,4 +81,7 @@ If I had more time, I would do the following:
 them in the code.
 * Not sure if it's possible given the limited telemetry data but find a better way to get the car position and
 generate events.
+* Use a proper pipeline framework e.g. [luigi](https://github.com/spotify/luigi) or [Airflow](https://airflow.apache.org/) although
+for this task both seemed to be an overkill.
+* Better error handling e.g. on client unable to connect or disconnect
 
