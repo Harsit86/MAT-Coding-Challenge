@@ -5,7 +5,7 @@ from src.models.car import Car
 
 
 # hard-code 6 for now
-CAR_COUNT = os.environ.get('CAR_COUNT', 3)
+CAR_COUNT = os.environ.get('CAR_COUNT', 6)
 
 
 class Race(object):
