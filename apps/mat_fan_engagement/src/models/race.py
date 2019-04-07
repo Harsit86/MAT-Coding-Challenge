@@ -44,7 +44,7 @@ class Race(object):
     def _update_car_positions(self, car_index):
         car_positions = self.get_car_positions()
         if car_positions is not None:
-            self._cars[car_index].set_position(car_positions[car_index])
+            self._cars[car_index].current_position = car_positions[car_index]
             self._set_event(car_positions, car_index)
             self._car_positions = car_positions
 
@@ -57,6 +57,9 @@ class Race(object):
         return None if not self._event else {'timestamp': self._timestamp, 'text': self._event}
 
     def get_car_positions(self):
-        if len(self._cars) == CAR_COUNT:
-            car_distances = [self._cars[i].get_distance_travelled() for i in range(CAR_COUNT)]
-            return dict(zip(np.argsort(car_distances)[::-1], range(CAR_COUNT)))
+        if len(self._cars) != CAR_COUNT:
+            # Only calculate car positions once we have distance travelled for all cars
+            return
+
+        car_distances = [self._cars[i].distance_travelled for i in range(CAR_COUNT)]
+        return dict(zip(np.argsort(car_distances)[::-1], range(CAR_COUNT)))

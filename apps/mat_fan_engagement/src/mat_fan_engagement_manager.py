@@ -9,17 +9,18 @@ from src.schemas.events import EventsSchema
 from src.models.race import Race
 
 
-# hard-coded for now
+# hard-code topics for now
 CAR_COORDS_TOPIC = os.environ.get('MQTT_TOPIC', 'carCoordinates')
 CAR_STATUS_TOPIC = os.environ.get('MQTT_STATUS_TOPIC', 'carStatus')
 EVENTS_TOPIC = os.environ.get('MQTT_EVENTS_TOPIC', 'events')
+
 CC_SCHEMA = CarCoordinatesSchema()
 STATUS_SCHEMA = CarStatusSchema()
 EVENTS_SCHEMA = EventsSchema()
 log = get_logger(__file__)
 
 
-class FanEngagementComponent(object):
+class MATFanEngagementManager(object):
 
     def __init__(self, host='localhost', port=1883):
         self._host = host

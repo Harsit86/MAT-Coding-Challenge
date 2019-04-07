@@ -1,9 +1,9 @@
-from src.fan_engagement_component import FanEngagementComponent
+from src.mat_fan_engagement_manager import MATFanEngagementManager
 
 
 def main():
-    fec = FanEngagementComponent()
-    fec.run()
+    mat_fem = MATFanEngagementManager()
+    mat_fem.run()
 
 
 if __name__=='__main__':
