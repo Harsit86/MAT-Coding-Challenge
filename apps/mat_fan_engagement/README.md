@@ -79,9 +79,9 @@ If I had more time, I would do a lot of things differently, naming a few below:
 * Dockerise the application and add it to the [docker-compose.yaml](../../docker-compose.yaml)
 * Read enviornment variables from [mqtt.env](../../mqtt.env) and [car.env](../../cars.env), but for now have hard-coded
 them in the code.
-* Not sure if it's possible given the limited telemetry data but find a better way to get the car position and
-generate events.
+* Car position and event generation has been done vary naively using just the distance travelled by each car which
+stricly isn't right but would've taken a lot longer to implement the logic.
 * Use a proper pipeline framework e.g. [luigi](https://github.com/spotify/luigi) or [Airflow](https://airflow.apache.org/) although
 for this task both seemed to be an overkill.
 * Better error handling e.g. on client unable to connect or disconnect
-
+* Better event messages

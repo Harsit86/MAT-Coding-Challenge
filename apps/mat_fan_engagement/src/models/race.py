@@ -49,6 +49,9 @@ class Race(object):
             self._car_positions = car_positions
 
     def get_car_status(self, car_index):
+        if car_index not in self._cars:
+            raise KeyError(f'Car {car_index} is not in this race.')
+
         return [
             self._cars[car_index].get_current_speed_status(), self._cars[car_index].get_current_position_status()
         ]
