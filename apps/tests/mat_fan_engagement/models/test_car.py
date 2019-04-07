@@ -1,5 +1,5 @@
 from src.models.car import (
-    CarStatus,
+    Car,
     CarStatusTypes,
 )
 
@@ -13,7 +13,7 @@ def test_car_status_initial_status():
         'timestamp': 1554565525039
     }
 
-    car_status = CarStatus(coordinates)
+    car_status = Car(coordinates)
     car_status.update_status(coordinates)
     actual = car_status.get_current_position_status()
 
@@ -35,7 +35,7 @@ def test_car_status_updated_location_speed_status():
         },
         'timestamp': 1554566859732
     }
-    car_status = CarStatus(coords1)
+    car_status = Car(coords1)
     car_status.update_status(coords1)
 
     coords2 = {
@@ -53,6 +53,6 @@ def test_car_status_updated_location_speed_status():
         'carIndex': 0,
         'timestamp': coords2['timestamp'],
         'type': CarStatusTypes.SPEED.name,
-        'value': 281
+        'value': 175
     }
     assert actual == expected
