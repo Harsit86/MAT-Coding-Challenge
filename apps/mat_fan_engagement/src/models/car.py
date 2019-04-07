@@ -1,16 +1,12 @@
-from enum import Enum
 from geopy import distance
 from logger import get_logger
+
+from src.schemas.car_status import CarStatusTypes
 
 
 log = get_logger(__file__)
 MILLISECS = 1000.0
 SECS_IN_HOUR = 3600.0
-
-
-class CarStatusTypes(Enum):
-    SPEED = 'SPEED'
-    POSITION = 'POSITION'
 
 
 class Car(object):
