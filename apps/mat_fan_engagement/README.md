@@ -85,3 +85,12 @@ stricly isn't right but would've taken a lot longer to implement the logic.
 for this task both seemed to be an overkill.
 * Better error handling e.g. on client unable to connect or disconnect
 * Better event messages
+
+
+## Tests
+
+Tests can be found in [tests](./tests), to run them do:
+
+```bash
+pytest
+```
